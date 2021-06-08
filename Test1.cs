@@ -10,5 +10,6 @@ namespace Chess960
     {
         //se glea comment?
         int a = 10;
+        //new change
     }
 }
