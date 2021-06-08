@@ -1,7 +1,7 @@
 ﻿
 namespace Chess960
 {
-    partial class Form1
+    partial class Board
     {
         /// <summary>
         /// Required designer variable.
