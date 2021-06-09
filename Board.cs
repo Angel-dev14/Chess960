@@ -85,5 +85,31 @@ namespace Chess960
                 }
             }
         }
+        public int GetBlockColorType(int i, int j) // 1 white 2 black
+        {
+            return Chess.Map[i, j] / 10; // 1 = white // 2 = black
+        }
+        public int GetFigurePosition(int i, int j)
+        {
+            return Chess.Map[i, j] % 10; // first digit
+        }
+        // Generate figure
+        public Image GenerateFigure(int color, int type)
+        {
+            Image figure = null;
+            string fullPath = Application.StartupPath.Substring(0, Application.StartupPath.Length - 10);
+
+            switch (color)
+            {
+                case 1:
+                    figure = new Bitmap(fullPath + "\figures\white\" + type + ".png");
+                    break;
+                case 2:
+                    figure = new Bitmap(fullPath + "\figures\black\" + type + ".png");
+                    break;
+            }
+            Image formatted = new Bitmap(figure, 100, 100);
+            return formatted;
+        }
     }
 }
