@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 public class Figure
 {

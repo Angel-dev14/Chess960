@@ -31,12 +31,12 @@ namespace Chess960
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // Board
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(625, 498);
-            this.Name = "Form1";
+            this.ClientSize = new System.Drawing.Size(804, 801);
+            this.Name = "Board";
             this.Text = "Form1";
             this.ResumeLayout(false);
 

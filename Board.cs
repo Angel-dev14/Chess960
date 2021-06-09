@@ -14,6 +14,9 @@ namespace Chess960
     {
         public Block[,] Blocks { get; set; }
         public int CurrentPlayer { get; set; }
+        public Block PressedBlock { get; set; }
+        public Block PreviousBlock { get; set; }
+        public bool ToBeMoved { get; set; }
 
         public Board()
         {
@@ -75,7 +78,7 @@ namespace Chess960
                         block.Figure = figure;
                     }
 
-                    //block.Click += new EventHandler(OnFigureClick); // ne e implementirano
+                    block.Click += new EventHandler(OnFigureClick);
 
                     Blocks[i, j] = block; // Add block to blocks matrix
 
@@ -102,14 +105,89 @@ namespace Chess960
             switch (color)
             {
                 case 1:
-                    figure = new Bitmap(fullPath + "\figures\white\" + type + ".png");
+                    figure = new Bitmap(fullPath + "\\figures\\white\\" + type + ".png");
                     break;
                 case 2:
-                    figure = new Bitmap(fullPath + "\figures\black\" + type + ".png");
+                    figure = new Bitmap(fullPath + "\\figures\\black\\" + type + ".png");
                     break;
             }
             Image formatted = new Bitmap(figure, 100, 100);
             return formatted;
         }
+        public void OnFigureClick(object sender, EventArgs e)
+        {
+            if (PreviousBlock != null)
+            {
+                PreviousBlock.BackColor = PreviousBlock.Color;
+            }
+
+            PressedBlock = sender as Block;
+
+            int x = PressedBlock.Location.X / 100;
+            int y = PressedBlock.Location.Y / 100;
+
+            int location = Chess.Map[y, x];
+
+            if (location != 0 && location / 10 == CurrentPlayer) // make sure that an enemy figure is clicked
+            {
+                //ClearBoard();
+
+                if (PressedBlock.BackColor != Color.Purple)
+                    PressedBlock.BackColor = Color.Red; // Show selected block color (on click)
+
+                //DisableBlocks();
+
+                PressedBlock.Enabled = true;
+
+                //ShowSteps(y, x, PressedBlock.Figure.Type % 10);
+
+                if (ToBeMoved)
+                {
+                    //ClearBoard();
+                    PressedBlock.BackColor = PressedBlock.Color;
+                    //EnableBlocks();
+                    ToBeMoved = false;
+                }
+                else
+                {
+                    ToBeMoved = true;
+                }
+            }
+            else
+            {
+                if (ToBeMoved)
+                {
+                    // CheckIfKingIsTagged(y, x) ;
+                    //SwapFigurePosition(y, x);
+                    
+                    //KingWarned = false;
+                    // To this pressed block add the previous figure
+                    PressedBlock.AddFigure(PreviousBlock.Figure);
+
+                    // set the previous block figure to empty
+                    PreviousBlock.ClearFigure();
+
+                    // reset the moving process
+                    ToBeMoved = false;
+
+                    //ClearBoard();
+
+                    //EnableBlocks();
+
+                    //CheckIfKingIsTagged(y, x); // not finished implementation
+
+                    //CheckIfGameEnded();
+
+                    //PawnPromotion(y, x);
+
+                    //Test(); //testing a new algorithm
+
+                    //ChangePlayer();
+
+                }
+            }
+            PreviousBlock = PressedBlock;
+        }
     }
+
 }
