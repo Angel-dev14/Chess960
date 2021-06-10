@@ -528,6 +528,58 @@ namespace Chess960
                 }
             }
         }
+        public void QueenMoves(int currentRow, int currentColumn, bool invisible = false)
+        {
+            EnableBlocks();
+            RookMoves(currentRow, currentColumn, invisible);
+            BishopMoves(currentRow, currentColumn, invisible);
+        }
+        public void KingMoves(int currentRow, int currentColumn)
+        {
+            int i = currentRow;
+            int j = currentColumn;
+
+            if (CheckBounds(i + 1, j))
+            {
+                if (IsAvailable(i + 1, j))
+                    FindPath(i + 1, j);
+            }
+            if (CheckBounds(i - 1, j))
+            {
+                if (IsAvailable(i - 1, j))
+                    FindPath(i - 1, j);
+            }
+            if (CheckBounds(i + 1, j + 1))
+            {
+                if (IsAvailable(i + 1, j + 1))
+                    FindPath(i + 1, j + 1);
+            }
+            if (CheckBounds(i + 1, j - 1))
+            {
+                if (IsAvailable(i + 1, j - 1))
+                    FindPath(i + 1, j - 1);
+            }
+            if (CheckBounds(i - 1, j + 1))
+            {
+                if (IsAvailable(i - 1, j + 1))
+                    FindPath(i - 1, j + 1);
+            }
+            if (CheckBounds(i - 1, j - 1))
+            {
+                if (IsAvailable(i - 1, j - 1))
+                    FindPath(i - 1, j - 1);
+            }
+            if (CheckBounds(i, j + 1))
+            {
+                if (IsAvailable(i, j + 1))
+                    FindPath(i, j + 1);
+            }
+            if (CheckBounds(i, j - 1))
+            {
+                if (IsAvailable(i, j - 1))
+                    FindPath(i, j - 1);
+            }
+        }
 
     }
 
