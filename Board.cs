@@ -158,7 +158,7 @@ namespace Chess960
                 if (ToBeMoved)
                 {
                     // CheckIfKingIsTagged(y, x) ;
-                    //SwapFigurePosition(y, x);
+                    SwapFigurePosition(y, x);
                     
                     //KingWarned = false;
                     // To this pressed block add the previous figure
@@ -188,6 +188,37 @@ namespace Chess960
             }
             PreviousBlock = PressedBlock;
         }
+        public void SwapFigurePosition(int y, int x)
+        {
+            int prevX = PreviousBlock.Location.X / 100;
+            int prevY = PreviousBlock.Location.Y / 100;
+            Chess.Map[y, x] = Chess.Map[prevY, prevX];
+
+            Chess.Map[prevY, prevX] = 0; // Set to 0, because the figure is moved
+        }
+        public bool FindPath(int i, int j)
+        {
+            if (Chess.Map[i, j] == 0)
+            {
+                Blocks[i, j].Available();
+                Blocks[i, j].Enabled = true;
+            }
+            else
+            {
+                if (Chess.Map[i, j] / 10 != CurrentPlayer && Chess.Map[i, j] % 10 != 1) // Dokolku imame figura od sprotiven igrac treba da sopre algoritmot i da ovozmozi deka moze da se zeme taa figura
+                {
+                    Blocks[i, j].Available();
+                    Blocks[i, j].Enabled = true;
+                }
+                return false; // end the search
+            }
+            return true;
+        }
+        public int GetDirection()
+        {
+            return CurrentPlayer == 1 ? -1 : 1;
+        }
+        // ============= FIGURE MOVES =============
     }
 
 }
