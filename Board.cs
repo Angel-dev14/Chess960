@@ -219,6 +219,85 @@ namespace Chess960
             return CurrentPlayer == 1 ? -1 : 1;
         }
         // ============= FIGURE MOVES =============
+
+        public bool CheckDoubleMoves(int currentRow)
+        {
+            if (currentRow == 1)
+                return true;
+            if (currentRow == 6)
+                return true;
+            return false;
+        }
+        public void PawnDoubleMoves(int currentRow, int currentColumn)
+        {
+            int i = currentRow;
+            int j = currentColumn;
+            int direction = GetDirection();
+            if (CheckBounds(i + 2 * direction, j))
+            {
+                if (Chess.Map[i + 2 * direction, j] == 0)
+                {
+                    Blocks[i + 1 * direction, j].Available();
+                    Blocks[i + 2 * direction, j].Available();
+                    Blocks[i + 1 * direction, j].Enabled = true;
+                    Blocks[i + 2 * direction, j].Enabled = true;
+                    PawnMoves(currentRow, currentColumn);
+                }
+                else
+                {
+                    PawnMoves(currentRow, currentColumn);
+                }
+            }
+            else
+            {
+                PawnMoves(currentRow, currentColumn);
+            }
+        }
+        public void PawnMoves(int currentRow, int currentColumn, bool invisible = false)
+        {
+            int i = currentRow;
+            int j = currentColumn;
+            int direction = GetDirection();
+            if(invisible)
+            {
+                if (CheckBounds(i + 1 * direction, j + 1))
+                {
+                    FindInvisiblePath(i + 1 * direction, j + 1);
+                }
+                if (CheckBounds(i + 1 * direction, j - 1))
+                {
+                    FindInvisiblePath(i + 1 * direction, j - 1);
+                }
+                return;
+
+            }
+            if (CheckBounds(i + 1 * direction, j))
+            {
+                if (Chess.Map[i + 1 * direction, j] == 0)
+                {
+                    Blocks[i + 1 * direction, j].Available();
+                    Blocks[i + 1 * direction, j].Enabled = true;
+                }
+            }
+            if (CheckBounds(i + 1 * direction, j + 1))
+            {
+
+                if (Chess.Map[i + 1 * direction, j + 1] != 0 && Chess.Map[i + 1 * direction, j + 1] / 10 != CurrentPlayer)
+                {
+                    Blocks[i + 1 * direction, j + 1].Available();
+                    Blocks[i + 1 * direction, j + 1].Enabled = true;
+                }
+            }
+            if (CheckBounds(i + 1 * direction, j - 1))
+            {
+                if (Chess.Map[i + 1 * direction, j - 1] != 0 && Chess.Map[i + 1 * direction, j - 1] / 10 != CurrentPlayer 	&& CheckBounds(i + 1 * direction, j - 1))
+                {
+                    Blocks[i + 1 * direction, j - 1].Available();
+                    Blocks[i + 1 * direction, j - 1].Enabled = true;
+                }
+            }
+        }
+
     }
 
 }
