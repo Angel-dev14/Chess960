@@ -17,6 +17,7 @@ namespace Chess960
         public Block PressedBlock { get; set; }
         public Block PreviousBlock { get; set; }
         public bool ToBeMoved { get; set; }
+        public bool KingWarned { get; set; }
 
         public Board()
         {
@@ -28,6 +29,12 @@ namespace Chess960
             CurrentPlayer = 1;
 
             Blocks = new Block[8, 8];
+
+            KingWarned = false;
+
+            PreviousBlock = new Block();
+
+            ToBeMoved = false;
 
             CreateBoard();
         }
@@ -130,22 +137,22 @@ namespace Chess960
 
             if (location != 0 && location / 10 == CurrentPlayer) // make sure that an enemy figure is clicked
             {
-                //ClearBoard();
+                ClearBoard();
 
                 if (PressedBlock.BackColor != Color.Purple)
                     PressedBlock.BackColor = Color.Red; // Show selected block color (on click)
 
-                //DisableBlocks();
+                DisableBlocks();
 
                 PressedBlock.Enabled = true;
 
-                //ShowSteps(y, x, PressedBlock.Figure.Type % 10);
+                ShowSteps(y, x, PressedBlock.Figure.Type % 10);
 
                 if (ToBeMoved)
                 {
-                    //ClearBoard();
+                    ClearBoard();
                     PressedBlock.BackColor = PressedBlock.Color;
-                    //EnableBlocks();
+                    EnableBlocks();
                     ToBeMoved = false;
                 }
                 else
@@ -160,7 +167,8 @@ namespace Chess960
                     // CheckIfKingIsTagged(y, x) ;
                     SwapFigurePosition(y, x);
                     
-                    //KingWarned = false;
+                    KingWarned = false;
+
                     // To this pressed block add the previous figure
                     PressedBlock.AddFigure(PreviousBlock.Figure);
 
@@ -170,9 +178,9 @@ namespace Chess960
                     // reset the moving process
                     ToBeMoved = false;
 
-                    //ClearBoard();
+                    ClearBoard();
 
-                    //EnableBlocks();
+                    EnableBlocks();
 
                     //CheckIfKingIsTagged(y, x); // not finished implementation
 
@@ -182,7 +190,7 @@ namespace Chess960
 
                     //Test(); //testing a new algorithm
 
-                    //ChangePlayer();
+                    ChangePlayer();
 
                 }
             }
@@ -211,7 +219,7 @@ namespace Chess960
                 case 5:
                     RookMoves(i, j);
                     break;
-                case 4:
+                /*case 4:
                     HourseMoves(i, j);
                     break;
                 case 3:
@@ -222,7 +230,7 @@ namespace Chess960
                     break;
                 case 1:
                     KingMoves(i, j);
-                    break;
+                    break;*/
             }
         }
         public bool CheckBounds(int i, int j)
@@ -371,6 +379,77 @@ namespace Chess960
                 {
                     Blocks[i + 1 * direction, j - 1].Available();
                     Blocks[i + 1 * direction, j - 1].Enabled = true;
+                }
+            }
+        }
+        public void RookMoves(int currentRow, int currentColumn, bool invisible = false)
+        {
+            // DIRECTION DOWN
+            for (int i = currentRow + 1; i < 8; i++)
+            {
+                if (CheckBounds(i, currentColumn))
+                {
+                    if (invisible)
+                    {
+                        if (!FindInvisiblePath(i, currentColumn))
+                            break;
+                    }
+                    else
+                    {
+                        if (!FindPath(i, currentColumn))
+                            break;
+                    }
+                }
+            }
+            // DIRECTION UP
+            for (int i = currentRow - 1; i >= 0; i--)
+            {
+                if (CheckBounds(i, currentColumn))
+                {
+                    if (invisible)
+                    {
+                        if (!FindInvisiblePath(i, currentColumn))
+                            break;
+                    }
+                    else
+                    {
+                        if (!FindPath(i, currentColumn))
+                            break;
+                    }
+                }
+            }
+            // DIRECTION RIGHT
+            for (int j = currentColumn + 1; j < 8; j++)
+            {
+                if (CheckBounds(currentRow, j))
+                {
+                    if (invisible)
+                    {
+                        if (!FindInvisiblePath(currentRow, j))
+                            break;
+                    }
+                    else
+                    {
+                        if (!FindPath(currentRow, j))
+                            break;
+                    }
+                }
+            }
+            // DIRECTION LEFT
+            for (int j = currentColumn - 1; j >= 0; j--)
+            {
+                if (CheckBounds(currentRow, j))
+                {
+                    if (invisible)
+                    {
+                        if (!FindInvisiblePath(currentRow, j))
+                            break;
+                    }
+                    else
+                    {
+                        if (!FindPath(currentRow, j))
+                            break;
+                    }
                 }
             }
         }
