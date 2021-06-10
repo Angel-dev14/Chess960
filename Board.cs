@@ -196,6 +196,64 @@ namespace Chess960
 
             Chess.Map[prevY, prevX] = 0; // Set to 0, because the figure is moved
         }
+
+        public void ShowSteps(int i, int j, int figureType)
+        {
+
+            switch (figureType)
+            {
+                // MOVES
+                case 6:
+                    if (CheckDoubleMoves(i))
+                        PawnDoubleMoves(i, j);
+                    else PawnMoves(i, j);
+                    break;
+                case 5:
+                    RookMoves(i, j);
+                    break;
+                case 4:
+                    HourseMoves(i, j);
+                    break;
+                case 3:
+                    BishopMoves(i, j);
+                    break;
+                case 2:
+                    QueenMoves(i, j);
+                    break;
+                case 1:
+                    KingMoves(i, j);
+                    break;
+            }
+        }
+        public bool CheckBounds(int i, int j)
+        {
+            if (i >= 8 || j >= 8 || i < 0 || j < 0)
+                return false;
+            return true;
+        }
+        public void ChangePlayer()
+        {
+            if (CurrentPlayer == 1)
+                CurrentPlayer = 2;
+            else CurrentPlayer = 1;
+        }
+        public void ClearBoard()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (KingWarned && Blocks[i, j].BackColor == Color.Purple)
+                        continue;
+                    else
+                        Blocks[i, j].BackColor = Blocks[i, j].Color;
+                }
+            }
+
+        }
+
+
+
         public bool FindPath(int i, int j)
         {
             if (Chess.Map[i, j] == 0)
