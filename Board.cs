@@ -453,6 +453,81 @@ namespace Chess960
                 }
             }
         }
+        public void BishopMoves(int currentRow, int currentColumn, bool invisible = false)
+        {
+            // RIGHT DIAGONAL UP
+            int j = currentColumn + 1;
+            for (int i = currentRow - 1; i >= 0; i--)
+            {
+                if (CheckBounds(i, j))
+                {
+                    if (invisible)
+                    {
+                        if (!FindInvisiblePath(i, j++))
+                            break;
+                    }
+                    else
+                    {
+                        if (!FindPath(i, j++))
+                            break;
+                    }
+                }
+            }
+            // LEFT DIAGONAL UP
+            j = currentColumn - 1;
+            for (int i = currentRow - 1; i >= 0; i--)
+            {
+                if (CheckBounds(i, j))
+                {
+                    if (invisible)
+                    {
+                        if (!FindInvisiblePath(i, j--))
+                            break;
+                    }
+                    else
+                    {
+                        if (!FindPath(i, j--))
+                            break;
+                    }
+                }
+            }
+            // RIGHT DIAGONAL DOWN
+            j = currentColumn + 1;
+            for (int i = currentRow + 1; i < 8; i++)
+            {
+                if (CheckBounds(i, j))
+                {
+                    if (invisible)
+                    {
+                        if (!FindInvisiblePath(i, j++))
+                            break;
+                    }
+                    else
+                    {
+                        if (!FindPath(i, j++))
+                            break;
+                    }
+                }
+            }
+            // LEFT DIAGONAL DOWN
+            j = currentColumn - 1;
+            for (int i = currentRow + 1; i < 8; i++)
+            {
+                if (CheckBounds(i, j))
+                {
+                    if (invisible)
+                    {
+                        if (!FindInvisiblePath(i, j--))
+                            break;
+                    }
+                    else
+                    {
+                        if (!FindPath(i, j--))
+                            break;
+                    }
+                }
+            }
+        }
 
     }
 
