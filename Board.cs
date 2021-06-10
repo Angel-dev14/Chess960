@@ -166,7 +166,7 @@ namespace Chess960
                 {
                     // CheckIfKingIsTagged(y, x) ;
                     SwapFigurePosition(y, x);
-                    
+
                     KingWarned = false;
 
                     // To this pressed block add the previous figure
@@ -219,18 +219,18 @@ namespace Chess960
                 case 5:
                     RookMoves(i, j);
                     break;
-                /*case 4:
-                    HourseMoves(i, j);
-                    break;
-                case 3:
-                    BishopMoves(i, j);
-                    break;
-                case 2:
-                    QueenMoves(i, j);
-                    break;
-                case 1:
-                    KingMoves(i, j);
-                    break;*/
+                    /*case 4:
+                        HourseMoves(i, j);
+                        break;
+                    case 3:
+                        BishopMoves(i, j);
+                        break;
+                    case 2:
+                        QueenMoves(i, j);
+                        break;
+                    case 1:
+                        KingMoves(i, j);
+                        break;*/
             }
         }
         public bool CheckBounds(int i, int j)
@@ -343,7 +343,7 @@ namespace Chess960
             int i = currentRow;
             int j = currentColumn;
             int direction = GetDirection();
-            if(invisible)
+            if (invisible)
             {
                 if (CheckBounds(i + 1 * direction, j + 1))
                 {
@@ -375,7 +375,7 @@ namespace Chess960
             }
             if (CheckBounds(i + 1 * direction, j - 1))
             {
-                if (Chess.Map[i + 1 * direction, j - 1] != 0 && Chess.Map[i + 1 * direction, j - 1] / 10 != CurrentPlayer 	&& CheckBounds(i + 1 * direction, j - 1))
+                if (Chess.Map[i + 1 * direction, j - 1] != 0 && Chess.Map[i + 1 * direction, j - 1] / 10 != CurrentPlayer && CheckBounds(i + 1 * direction, j - 1))
                 {
                     Blocks[i + 1 * direction, j - 1].Available();
                     Blocks[i + 1 * direction, j - 1].Enabled = true;
