@@ -680,6 +680,28 @@ namespace Chess960
                 }
             }
         }
+        public bool FindInvisiblePath(int i, int j)
+        {
+            if (Chess.Map[i, j] == 0)
+            {
+                if (EmptyBlock(i, j) || Chess.Moves[i, j] != CurrentPlayer)
+                {
+                    Chess.Moves[i, j] = CurrentPlayer * -1; // PROBLEM IS HERE
+                }
+                if (Chess.Moves[i, j] == -1)
+                    Blocks[i, j].BackColor = Color.Blue;
+                if (Chess.Moves[i, j] == -2)
+                    Blocks[i, j].BackColor = Color.Orange;
+
+                return true; // the loop can continue
+            }
+            if (KingWarning(i, j))
+            {
+                return false; // the loop can end
+            }
+
+            return false;
+        }
 
     }
 
