@@ -580,6 +580,60 @@ namespace Chess960
                     FindPath(i, j - 1);
             }
         }
+        public void HorseMoves(int currentRow, int currentColumn, bool invisible = false)
+        {
+            int i = currentRow;
+            int j = currentColumn;
+
+            if (CheckBounds(i - 2, j - 1))
+            {
+                if (invisible)
+                    FindInvisiblePath(i - 2, j - 1);
+                else FindPath(i - 2, j - 1);
+            }
+            if (CheckBounds(i - 2, j + 1))
+            {
+                if (invisible)
+                    FindInvisiblePath(i - 2, j + 1);
+                else FindPath(i - 2, j + 1);
+            }
+            if (CheckBounds(i - 1, j - 2))
+            {
+                if (invisible)
+                    FindInvisiblePath(i - 1, j - 2);
+                else FindPath(i - 1, j - 2);
+            }
+            if (CheckBounds(i - 1, j + 2))
+            {
+                if (invisible)
+                    FindInvisiblePath(i - 1, j + 2);
+                else FindPath(i - 1, j + 2);
+            }
+            if (CheckBounds(i + 2, j - 1))
+            {
+                if (invisible)
+                    FindInvisiblePath(i + 2, j - 1);
+                else FindPath(i + 2, j - 1);
+            }
+            if (CheckBounds(i + 2, j + 1))
+            {
+                if (invisible)
+                    FindInvisiblePath(i + 2, j + 1);
+                else FindPath(i + 2, j + 1);
+            }
+            if (CheckBounds(i + 1, j - 2))
+            {
+                if (invisible)
+                    FindInvisiblePath(i + 1, j - 2);
+                else FindPath(i + 1, j - 2);
+            }
+            if (CheckBounds(i + 1, j + 2))
+            {
+                if (invisible)
+                    FindInvisiblePath(i + 1, j + 2);
+                else FindPath(i + 1, j + 2);
+            }
+        }
         //================================== CHECK ALGORITHM ===========================
         public bool EmptyBlock(int i, int j)
         {
@@ -601,7 +655,7 @@ namespace Chess960
                     RookMoves(i, j, true);
                     break;
                 case 4:
-                    HourseMoves(i, j, true);
+                    HorseMoves(i, j, true);
                     break;
                 case 3:
                     BishopMoves(i, j, true);
