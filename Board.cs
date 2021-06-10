@@ -580,6 +580,52 @@ namespace Chess960
                     FindPath(i, j - 1);
             }
         }
+        //================================== CHECK ALGORITHM ===========================
+        public bool EmptyBlock(int i, int j)
+        {
+            return Chess.Moves[i, j] == 0;
+        }
+        public void CheckIfKingIsTagged(int i, int j)
+        {
+            ResetMarkedBlocks();
+            // THIS LOOKS FOR DIRECT TREATS TO THE KING
+            int type = Chess.Map[i, j] % 10;
+            switch (type)
+            {
+                // MOVES
+
+                case 6:
+                    PawnMoves(i, j, true);
+                    break;
+                case 5:
+                    RookMoves(i, j, true);
+                    break;
+                case 4:
+                    HourseMoves(i, j, true);
+                    break;
+                case 3:
+                    BishopMoves(i, j, true);
+                    break;
+                case 2:
+                    QueenMoves(i, j, true);
+                    break;
+                    /*case 1:
+                        KingMoves(i, j);
+                        break;
+                    */
+
+            }
+        }
+        public void ResetMarkedBlocks()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    Chess.Moves[i, j] = 0;
+                }
+            }
+        }
 
     }
 
