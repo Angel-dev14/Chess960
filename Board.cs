@@ -252,7 +252,26 @@ namespace Chess960
 
         }
 
-
+        public void DisableBlocks()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    Blocks[i, j].Enabled = false;
+                }
+            }
+        }
+        public void EnableBlocks()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    Blocks[i, j].Enabled = true;
+                }
+            }
+        }
 
         public bool FindPath(int i, int j)
         {
