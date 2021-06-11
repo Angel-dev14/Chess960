@@ -18,7 +18,7 @@ namespace Chess960
         {
             InitializeComponent();
             this.AcceptButton = btnConfirm;
-            FigureType = 0;
+            FigureType = 2;
         }
 
         private void Queen_Click(object sender, EventArgs e)
