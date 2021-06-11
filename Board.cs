@@ -702,6 +702,32 @@ namespace Chess960
 
             return false;
         }
+        public bool IsAvailable(int i, int j)
+        {
+            return EmptyBlock(i, j) || Chess.Moves[i, j] == CurrentPlayer;
+        }
+        public bool KingWarning(int i, int j)
+        {
+            if (Chess.Map[i, j] % 10 == 1 && Chess.Map[i, j] / 10 != CurrentPlayer) // != opponent
+            {
+                // TREBA DA SE PROVERI DALI ZAKANATA DOVAGJA OD SPORIVNATA FIGURA
+                if (CheckIfKingIsTargetedByEnemy(i, j))
+                {
+                    if (CurrentPlayer == 1)
+                        BlackPlayerChecks++;
+                    else
+                        WhitePlayerChecks++;
+                    Blocks[i, j].BackColor = Color.Purple;
+                }
+                else
+                    Blocks[i, j].BackColor = Blocks[i, j].Color;
+
+                KingWarned = true;
+
+                return true;
+            }
+            return false;
+        }
 
     }
 
