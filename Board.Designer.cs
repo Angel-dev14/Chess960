@@ -29,6 +29,7 @@ namespace Chess960
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Board));
             this.SuspendLayout();
             // 
             // Board
@@ -36,8 +37,9 @@ namespace Chess960
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 801);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Board";
-            this.Text = "Form1";
+            this.Text = "Chess960";
             this.ResumeLayout(false);
 
         }

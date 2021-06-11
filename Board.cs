@@ -28,6 +28,8 @@ namespace Chess960
         }
         public void Init()
         {
+            Chess.Reset();
+
             CurrentPlayer = 1;
 
             Blocks = new Block[8, 8];
@@ -60,12 +62,12 @@ namespace Chess960
                     // Generate chess board colors
                     if (pointer % 2 == 0)
                     {
-                        block.BackColor = Color.White;
+                        block.BackColor = Color.FromArgb(232,235,239);
                         block.Color = block.BackColor;
                     }
                     else
                     {
-                        block.BackColor = Color.DarkGray;
+                        block.BackColor = Color.FromArgb(125,135,150);
                         block.Color = block.BackColor;
 
                     }
