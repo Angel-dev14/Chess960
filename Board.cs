@@ -190,7 +190,7 @@ namespace Chess960
 
                     //CheckIfGameEnded();
 
-                    //PawnPromotion(y, x);
+                    PawnPromotion(y, x);
 
                     //Test(); //testing a new algorithm
 
@@ -208,7 +208,41 @@ namespace Chess960
 
             Chess.Map[prevY, prevX] = 0; // Set to 0, because the figure is moved
         }
-
+        public void PawnPromotion(int i, int j)
+        {
+            if (i == 0 && Chess.Map[i, j] % 10 == 6)
+            {
+                WhitePawnPromotion(i, j);
+            }
+            if (i == 7 && Chess.Map[i, j] % 10 == 6)
+            {
+                BlackPawnPromotion(i, j);
+            }
+        }
+        public void WhitePawnPromotion(int i, int j)
+        {
+            PawnPromotionWhite promotion = new PawnPromotionWhite();
+            promotion.ShowDialog();
+            int type = promotion.FigureType;
+            Figure figure = new Figure();
+            figure.Icon = GenerateFigure(1, type);
+            figure.Type = type;
+            Blocks[i, j].Figure = figure;
+            Blocks[i, j].BackgroundImage = figure.Icon;
+            Chess.Map[i, j] = 10 + type;
+        }
+        public void BlackPawnPromotion(int i, int j)
+        {
+            PawnPromotionBlack promotion = new PawnPromotionBlack();
+            promotion.ShowDialog();
+            int type = promotion.FigureType;
+            Figure figure = new Figure();
+            figure.Icon = GenerateFigure(2, type);
+            figure.Type = type;
+            Blocks[i, j].Figure = figure;
+            Blocks[i, j].BackgroundImage = figure.Icon;
+            Chess.Map[i, j] = 20 + type;
+        }
         public void ShowSteps(int i, int j, int figureType)
         {
 
