@@ -766,6 +766,120 @@ namespace Chess960
             }
             return false;
         }
+        public bool EnemyIsNear(int i, int j)
+        {
+            return Chess.Map[i, j] / 10 == CurrentPlayer;
+        }
+        public bool Targeted(int i, int j)
+        {
+            return (Chess.Moves[i, j] == CurrentPlayer * -1) && (Chess.Moves[i, j] != 0);
+        }
+        public bool CheckIfKingIsTargetedByEnemy(int i, int j)
+        {
+            int type = PressedBlock.Figure.Type;
+            switch (type)
+            {
+                case 6:
+                    return CheckByPawn(i, j);
+                case 5:
+                    return CheckByRook(i, j);
+                case 4:
+                    return CheckByHorse(i, j);
+                case 3:
+                    return CheckByBishop(i, j);
+                case 2:
+                    return CheckByQueen(i, j);
+            }
+            return false;
+        }
+        public bool CheckByPawn(int i, int j)
+        {
+            if (CheckBounds(i + 1, j - 1))
+            {
+                if (EnemyIsNear(i + 1, j - 1))
+                    return true;
+            }
+            if (CheckBounds(i + 1, j + 1))
+            {
+                if (EnemyIsNear(i + 1, j + 1))
+                    return true;
+            }
+            if (CheckBounds(i - 1, j - 1))
+            {
+                if (EnemyIsNear(i - 1, j - 1))
+                    return true;
+            }
+            if (CheckBounds(i - 1, j + 1))
+            {
+                if (EnemyIsNear(i - 1, j + 1))
+                    return true;
+            }
+            return false;
+        }
+        public bool CheckByQueen(int i, int j)
+        {
+            return CheckByBishop(i, j) || CheckByRook(i, j);
+        }
+        public bool CheckByHorse(int i, int j)
+        {
+            if (CheckBounds(i - 2, j - 1))
+            {
+                if (Targeted(i - 2, j - 1) || EnemyIsNear(i - 2, j - 1))
+                {
+                    return true;
+                }
+            }
+            if (CheckBounds(i - 2, j + 1))
+            {
+                if (Targeted(i - 2, j + 1) || EnemyIsNear(i - 2, j + 1))
+                {
+                    return true;
+                }
+            }
+            if (CheckBounds(i - 1, j - 2))
+            {
+                if (Targeted(i - 1, j - 2) || EnemyIsNear(i - 1, j - 2))
+                {
+                    return true;
+                }
+            }
+            if (CheckBounds(i - 1, j + 2))
+            {
+                if (Targeted(i - 1, j + 2) || EnemyIsNear(i - 1, j + 2))
+                {
+                    return true;
+                }
+            }
+            if (CheckBounds(i + 2, j - 1))
+            {
+                if (Targeted(i + 2, j - 1) || EnemyIsNear(i + 2, j - 1))
+                {
+                    return true;
+                }
+            }
+            if (CheckBounds(i + 2, j + 1))
+            {
+                if (Targeted(i + 2, j + 1) || EnemyIsNear(i + 2, j + 1))
+                {
+                    return true;
+                }
+            }
+            if (CheckBounds(i + 1, j - 2))
+            {
+                if (Targeted(i + 1, j - 2) || EnemyIsNear(i + 1, j - 2))
+                {
+                    return true;
+                }
+            }
+            if (CheckBounds(i + 1, j + 2))
+            {
+                if (Targeted(i + 1, j + 2) || EnemyIsNear(i + 1, j + 2))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
     }
 
