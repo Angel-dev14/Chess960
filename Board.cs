@@ -18,6 +18,8 @@ namespace Chess960
         public Block PreviousBlock { get; set; }
         public bool ToBeMoved { get; set; }
         public bool KingWarned { get; set; }
+        public int WhitePlayerChecks { get; set; }
+        public int BlackPlayerChecks { get; set; }
 
         public Board()
         {
@@ -182,7 +184,7 @@ namespace Chess960
 
                     EnableBlocks();
 
-                    //CheckIfKingIsTagged(y, x); // not finished implementation
+                    CheckIfKingIsTagged(y, x); // not finished implementation
 
                     //CheckIfGameEnded();
 
@@ -219,18 +221,18 @@ namespace Chess960
                 case 5:
                     RookMoves(i, j);
                     break;
-                    /*case 4:
-                        HourseMoves(i, j);
-                        break;
-                    case 3:
-                        BishopMoves(i, j);
-                        break;
-                    case 2:
-                        QueenMoves(i, j);
-                        break;
-                    case 1:
-                        KingMoves(i, j);
-                        break;*/
+                case 4:
+                    HorseMoves(i, j);
+                    break;
+                case 3:
+                    BishopMoves(i, j);
+                    break;
+                case 2:
+                    QueenMoves(i, j);
+                    break;
+                case 1:
+                    KingMoves(i, j);
+                    break;
             }
         }
         public bool CheckBounds(int i, int j)
@@ -711,7 +713,7 @@ namespace Chess960
             if (Chess.Map[i, j] % 10 == 1 && Chess.Map[i, j] / 10 != CurrentPlayer) // != opponent
             {
                 // TREBA DA SE PROVERI DALI ZAKANATA DOVAGJA OD SPORIVNATA FIGURA
-                if (CheckIfKingIsTargetedByEnemy(i, j))
+                /*if (CheckIfKingIsTargetedByEnemy(i, j))
                 {
                     if (CurrentPlayer == 1)
                         BlackPlayerChecks++;
@@ -721,7 +723,7 @@ namespace Chess960
                 }
                 else
                     Blocks[i, j].BackColor = Blocks[i, j].Color;
-
+                */
                 KingWarned = true;
 
                 return true;
