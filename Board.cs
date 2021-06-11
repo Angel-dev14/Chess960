@@ -30,6 +30,8 @@ namespace Chess960
         {
             Chess.Reset();
 
+            Chess.RandomizeMap();
+
             CurrentPlayer = 1;
 
             Blocks = new Block[8, 8];
@@ -701,11 +703,9 @@ namespace Chess960
                 case 2:
                     QueenMoves(i, j, true);
                     break;
-                    /*case 1:
-                        KingMoves(i, j);
-                        break;
-                    */
-
+                case 1:
+                    KingMoves(i, j);
+                    break;
             }
         }
         public void ResetMarkedBlocks()
