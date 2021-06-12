@@ -60,6 +60,12 @@
     <Compile Include="Board.Designer.cs">
       <DependentUpon>Board.cs</DependentUpon>
     </Compile>
+    <Compile Include="EndForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EndForm.Designer.cs">
+      <DependentUpon>EndForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Figure.cs" />
     <Compile Include="PawnPromotionBlack.cs">
       <SubType>Form</SubType>
@@ -83,6 +89,9 @@
     </Compile>
     <EmbeddedResource Include="Board.resx">
       <DependentUpon>Board.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EndForm.resx">
+      <DependentUpon>EndForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PawnPromotionBlack.resx">
       <DependentUpon>PawnPromotionBlack.cs</DependentUpon>

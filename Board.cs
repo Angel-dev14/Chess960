@@ -30,7 +30,7 @@ namespace Chess960
         {
             Chess.Reset();
 
-            Chess.RandomizeMap();
+            //Chess.RandomizeMap();
 
             CurrentPlayer = 1;
 
@@ -190,7 +190,7 @@ namespace Chess960
 
                     CheckIfKingIsTagged(y, x); // not finished implementation
 
-                    //CheckIfGameEnded();
+                    CheckIfGameEnded();
 
                     PawnPromotion(y, x);
 
@@ -209,6 +209,27 @@ namespace Chess960
             Chess.Map[y, x] = Chess.Map[prevY, prevX];
 
             Chess.Map[prevY, prevX] = 0; // Set to 0, because the figure is moved
+        }
+        public void CheckIfGameEnded()
+        {
+            if (BlackPlayerChecks == 3)
+            {
+
+                EndForm endForm = new EndForm();
+                endForm.SetHeading("WHITE PLAYER WINS");
+                endForm.SetEnemyPlayer("black");
+                endForm.ShowDialog();
+                this.Close();
+
+            }
+            if (WhitePlayerChecks == 3)
+            {
+                EndForm endForm = new EndForm();
+                endForm.SetHeading("BLACK PLAYER WINS");
+                endForm.SetEnemyPlayer("white");
+                endForm.ShowDialog();
+                this.Close();
+            }
         }
         public void PawnPromotion(int i, int j)
         {
@@ -299,7 +320,6 @@ namespace Chess960
             }
 
         }
-
         public void DisableBlocks()
         {
             for (int i = 0; i < 8; i++)
@@ -749,7 +769,7 @@ namespace Chess960
             if (Chess.Map[i, j] % 10 == 1 && Chess.Map[i, j] / 10 != CurrentPlayer) // != opponent
             {
                 // TREBA DA SE PROVERI DALI ZAKANATA DOVAGJA OD SPORIVNATA FIGURA
-                /*if (CheckIfKingIsTargetedByEnemy(i, j))
+                if (CheckIfKingIsTargetedByEnemy(i, j))
                 {
                     if (CurrentPlayer == 1)
                         BlackPlayerChecks++;
@@ -759,7 +779,7 @@ namespace Chess960
                 }
                 else
                     Blocks[i, j].BackColor = Blocks[i, j].Color;
-                */
+                
                 KingWarned = true;
 
                 return true;
@@ -781,14 +801,14 @@ namespace Chess960
             {
                 case 6:
                     return CheckByPawn(i, j);
-                case 5:
-                    return CheckByRook(i, j);
+               /* case 5:
+                    return CheckByRook(i, j);*/
                 case 4:
                     return CheckByHorse(i, j);
-                case 3:
-                    return CheckByBishop(i, j);
-                case 2:
-                    return CheckByQueen(i, j);
+                /*case 3:
+                    return CheckByBishop(i, j);*/
+                /*case 2:
+                    return CheckByQueen(i, j);*/
             }
             return false;
         }
@@ -816,10 +836,10 @@ namespace Chess960
             }
             return false;
         }
-        public bool CheckByQueen(int i, int j)
+        /*public bool CheckByQueen(int i, int j)
         {
             return CheckByBishop(i, j) || CheckByRook(i, j);
-        }
+        }*/
         public bool CheckByHorse(int i, int j)
         {
             if (CheckBounds(i - 2, j - 1))
