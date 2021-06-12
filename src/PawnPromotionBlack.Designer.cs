@@ -29,6 +29,7 @@ namespace Chess960
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PawnPromotionBlack));
             this.btnConfirm = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.Horse = new System.Windows.Forms.PictureBox();
@@ -112,6 +113,7 @@ namespace Chess960
             this.Controls.Add(this.Bishop);
             this.Controls.Add(this.Rook);
             this.Controls.Add(this.Queen);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PawnPromotionBlack";
             this.Text = "Pawn promotion";
             ((System.ComponentModel.ISupportInitialize)(this.Horse)).EndInit();

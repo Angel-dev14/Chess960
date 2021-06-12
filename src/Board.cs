@@ -32,7 +32,7 @@ namespace Chess960
         {
             Chess.Reset();
 
-            //Chess.RandomizeMap();
+            Chess.RandomizeMap();
 
             CurrentPlayer = 1;
 
