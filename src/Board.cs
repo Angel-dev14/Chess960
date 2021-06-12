@@ -195,6 +195,7 @@ namespace Chess960
 
                     PawnPromotion(y, x);
 
+                    ClearBoard();
 
                     ChangePlayer();
 
@@ -702,6 +703,7 @@ namespace Chess960
         public void CheckIfKingIsTagged(int i, int j)
         {
             ResetMarkedBlocks();
+
             // THIS LOOKS FOR DIRECT TREATS TO THE KING
             int type = Chess.Map[i, j] % 10;
             switch (type)
@@ -746,11 +748,6 @@ namespace Chess960
                 {
                     Chess.Moves[i, j] = CurrentPlayer * -1; 
                 }
-                if (Chess.Moves[i, j] == -1)
-                    Blocks[i, j].BackColor = Color.Blue;
-                if (Chess.Moves[i, j] == -2)
-                    Blocks[i, j].BackColor = Color.Orange;
-
                 return true; // the loop can continue
             }
             if (KingWarning(i, j))
@@ -843,7 +840,6 @@ namespace Chess960
 
         public bool CheckByBishop(int i, int j)
         {
-            // let the enemy be bishop
 
             if (CheckBounds(i + 1, j + 1))
             {
