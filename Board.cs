@@ -20,6 +20,8 @@ namespace Chess960
         public bool KingWarned { get; set; }
         public int WhitePlayerChecks { get; set; }
         public int BlackPlayerChecks { get; set; }
+        public int currPlayer { get; set; }
+
 
         public Board()
         {
@@ -836,10 +838,79 @@ namespace Chess960
             }
             return false;
         }
-        /*public bool CheckByQueen(int i, int j)
+        public bool CheckByQueen(int i, int j)
         {
             return CheckByBishop(i, j) || CheckByRook(i, j);
-        }*/
+        }
+
+        public bool CheckByBishop(int i, int j)
+        {
+            // let the enemy be bishop
+
+            if (CheckBounds(i + 1, j + 1))
+            {
+                if ((Chess.Moves[i + 1, j + 1] == currPlayer * -1 && Chess.Moves[i + 1, j + 1] != 0) || EnemyIsNear(i + 1, j + 1))
+                {
+                    return true;
+                }
+            }
+            if (CheckBounds(i + 1, j - 1))
+            {
+                if ((Chess.Moves[i + 1, j - 1] == currPlayer * -1 && Chess.Moves[i + 1, j - 1] != 0) || EnemyIsNear(i + 1, j - 1))
+                {
+                    return true;
+                }
+            }
+            if (CheckBounds(i - 1, j + 1))
+            {
+                if ((Chess.Moves[i - 1, j + 1] == currPlayer * -1 && Chess.Moves[i - 1, j + 1] != 0) || EnemyIsNear(i - 1, j + 1))
+                {
+                    return true;
+                }
+            }
+            if (CheckBounds(i - 1, j - 1))
+            {
+                if ((Chess.Moves[i - 1, j - 1] == currPlayer * -1 && Chess.Moves[i - 1, j - 1] != 0) || EnemyIsNear(i - 1, j - 1))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        public bool CheckByRook(int i, int j)
+        {
+            if (CheckBounds(i + 1, j))
+            {
+                if ((Chess.Moves[i + 1, j] == currPlayer * -1 && Chess.Moves[i + 1, j] != 0) || EnemyIsNear(i + 1, j))
+                {
+                    return true;
+                }
+            }
+            if (CheckBounds(i - 1, j))
+            {
+                if ((Chess.Moves[i - 1, j] == currPlayer * -1 && Chess.Moves[i - 1, j] != 0) || EnemyIsNear(i - 1, j))
+                {
+                    return true;
+                }
+            }
+            if (CheckBounds(i, j - 1))
+            {
+                if ((Chess.Moves[i, j - 1] == currPlayer * -1 && Chess.Moves[i, j - 1] != 0) || EnemyIsNear(i, j - 1))
+                {
+                    return true;
+                }
+            }
+            if (CheckBounds(i, j + 1))
+            {
+                if ((Chess.Moves[i, j + 1] == currPlayer * -1 && Chess.Moves[i, j + 1] != 0) || EnemyIsNear(i, j + 1))
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
         public bool CheckByHorse(int i, int j)
         {
             if (CheckBounds(i - 2, j - 1))
