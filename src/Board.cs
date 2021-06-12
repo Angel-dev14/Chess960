@@ -172,7 +172,6 @@ namespace Chess960
             {
                 if (ToBeMoved)
                 {
-                    // CheckIfKingIsTagged(y, x) ;
                     SwapFigurePosition(y, x);
 
                     KingWarned = false;
@@ -190,13 +189,12 @@ namespace Chess960
 
                     EnableBlocks();
 
-                    CheckIfKingIsTagged(y, x); // not finished implementation
+                    CheckIfKingIsTagged(y, x); 
 
                     CheckIfGameEnded();
 
                     PawnPromotion(y, x);
 
-                    //Test(); //testing a new algorithm
 
                     ChangePlayer();
 
@@ -746,7 +744,7 @@ namespace Chess960
             {
                 if (EmptyBlock(i, j) || Chess.Moves[i, j] != CurrentPlayer)
                 {
-                    Chess.Moves[i, j] = CurrentPlayer * -1; // PROBLEM IS HERE
+                    Chess.Moves[i, j] = CurrentPlayer * -1; 
                 }
                 if (Chess.Moves[i, j] == -1)
                     Blocks[i, j].BackColor = Color.Blue;
@@ -803,14 +801,14 @@ namespace Chess960
             {
                 case 6:
                     return CheckByPawn(i, j);
-               /* case 5:
-                    return CheckByRook(i, j);*/
+                case 5:
+                    return CheckByRook(i, j);
                 case 4:
                     return CheckByHorse(i, j);
-                /*case 3:
-                    return CheckByBishop(i, j);*/
-                /*case 2:
-                    return CheckByQueen(i, j);*/
+                case 3:
+                    return CheckByBishop(i, j);
+                case 2:
+                    return CheckByQueen(i, j);
             }
             return false;
         }
@@ -849,28 +847,28 @@ namespace Chess960
 
             if (CheckBounds(i + 1, j + 1))
             {
-                if ((Chess.Moves[i + 1, j + 1] == currPlayer * -1 && Chess.Moves[i + 1, j + 1] != 0) || EnemyIsNear(i + 1, j + 1))
+                if (Targeted(i + 1, j + 1) || EnemyIsNear(i + 1, j + 1))
                 {
                     return true;
                 }
             }
             if (CheckBounds(i + 1, j - 1))
             {
-                if ((Chess.Moves[i + 1, j - 1] == currPlayer * -1 && Chess.Moves[i + 1, j - 1] != 0) || EnemyIsNear(i + 1, j - 1))
+                if (Targeted(i + 1, j - 1) || EnemyIsNear(i + 1, j - 1))
                 {
                     return true;
                 }
             }
             if (CheckBounds(i - 1, j + 1))
             {
-                if ((Chess.Moves[i - 1, j + 1] == currPlayer * -1 && Chess.Moves[i - 1, j + 1] != 0) || EnemyIsNear(i - 1, j + 1))
+                if (Targeted(i - 1, j + 1) || EnemyIsNear(i - 1, j + 1))
                 {
                     return true;
                 }
             }
             if (CheckBounds(i - 1, j - 1))
             {
-                if ((Chess.Moves[i - 1, j - 1] == currPlayer * -1 && Chess.Moves[i - 1, j - 1] != 0) || EnemyIsNear(i - 1, j - 1))
+                if (Targeted(i - 1, j - 1) || EnemyIsNear(i - 1, j - 1))
                 {
                     return true;
                 }
@@ -882,28 +880,28 @@ namespace Chess960
         {
             if (CheckBounds(i + 1, j))
             {
-                if ((Chess.Moves[i + 1, j] == currPlayer * -1 && Chess.Moves[i + 1, j] != 0) || EnemyIsNear(i + 1, j))
+                if (Targeted(i + 1, j) || EnemyIsNear(i + 1, j))
                 {
                     return true;
                 }
             }
             if (CheckBounds(i - 1, j))
             {
-                if ((Chess.Moves[i - 1, j] == currPlayer * -1 && Chess.Moves[i - 1, j] != 0) || EnemyIsNear(i - 1, j))
+                if (Targeted(i - 1, j) || EnemyIsNear(i - 1, j))
                 {
                     return true;
                 }
             }
             if (CheckBounds(i, j - 1))
             {
-                if ((Chess.Moves[i, j - 1] == currPlayer * -1 && Chess.Moves[i, j - 1] != 0) || EnemyIsNear(i, j - 1))
+                if (Targeted(i, j - 1) || EnemyIsNear(i, j - 1))
                 {
                     return true;
                 }
             }
             if (CheckBounds(i, j + 1))
             {
-                if ((Chess.Moves[i, j + 1] == currPlayer * -1 && Chess.Moves[i, j + 1] != 0) || EnemyIsNear(i, j + 1))
+                if (Targeted(i, j + 1) || EnemyIsNear(i, j + 1))
                 {
                     return true;
                 }
