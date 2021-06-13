@@ -20,7 +20,6 @@ namespace Chess960
         public bool KingWarned { get; set; }
         public int WhitePlayerChecks { get; set; }
         public int BlackPlayerChecks { get; set; }
-        public int currPlayer { get; set; }
 
 
         public Board()
