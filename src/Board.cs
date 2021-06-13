@@ -282,7 +282,7 @@ namespace Chess960
                     RookMoves(i, j);
                     break;
                 case 4:
-                    HorseMoves(i, j);
+                    KnightMoves(i, j);
                     break;
                 case 3:
                     BishopMoves(i, j);
@@ -641,7 +641,7 @@ namespace Chess960
                     FindPath(i, j - 1);
             }
         }
-        public void HorseMoves(int currentRow, int currentColumn, bool invisible = false)
+        public void KnightMoves(int currentRow, int currentColumn, bool invisible = false)
         {
             int i = currentRow;
             int j = currentColumn;
@@ -717,7 +717,7 @@ namespace Chess960
                     RookMoves(i, j, true);
                     break;
                 case 4:
-                    HorseMoves(i, j, true);
+                    KnightMoves(i, j, true);
                     break;
                 case 3:
                     BishopMoves(i, j, true);
@@ -801,7 +801,7 @@ namespace Chess960
                 case 5:
                     return CheckByRook(i, j);
                 case 4:
-                    return CheckByHorse(i, j);
+                    return CheckByKnight(i, j);
                 case 3:
                     return CheckByBishop(i, j);
                 case 2:
@@ -905,7 +905,7 @@ namespace Chess960
             return false;
 
         }
-        public bool CheckByHorse(int i, int j)
+        public bool CheckByKnight(int i, int j)
         {
             if (CheckBounds(i - 2, j - 1))
             {
